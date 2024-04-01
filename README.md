@@ -70,8 +70,13 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 https://blog.remirepo.net/post/2019/12/03/Install-PHP-7.4-on-CentOS-RHEL-or-Fedora
 
 dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
+
 dnf install https://rpms.remirepo.net/enterprise/remi-release-8.rpm
 
 dnf module reset php
+
 dnf module install php:remi-7.4
+
+# vagrant
+https://gist.github.com/carthegian/b2451320bd0dda6b2df4c79b73b412f6
 

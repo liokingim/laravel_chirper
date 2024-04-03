@@ -164,5 +164,7 @@ systemctl enable mysqld.service
 
 mysql -u root -p
 
+# cakephp 5.0.6
 
+composer create-project --prefer-dist cakephp/app:~5.0 event-app
 

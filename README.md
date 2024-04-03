@@ -82,6 +82,18 @@ https://gist.github.com/carthegian/b2451320bd0dda6b2df4c79b73b412f6
 
 # AlmaLinux 8
 
+# http
+
+firewall-cmd --list-all
+
+firewall-cmd --add-service=http --zone=public --permanent
+
+firewall-cmd --add-port=80/tcp --zone=public --permanent
+
+firewall-cmd --reload
+
+# php
+
 php 8.2
 
 dnf update
@@ -162,7 +174,43 @@ systemctl status mysqld.service
 
 systemctl enable mysqld.service
 
+firewall-cmd --list-all
+
+firewall-cmd --add-service=mysql --zone=public --permanent
+
+firewall-cmd --add-port=3306/tcp --zone=public --permanent
+
+firewall-cmd --reload
+
 mysql -u root -p
+
+ALTER USER 'root'@'localhost' IDENTIFIED BY 'password';
+
+SHOW VARIABLES LIKE 'validate_password%';
+
+SHOW VARIABLES LIKE '%time_zone%';
+
+SHOW VARIABLES LIKE '%character_set%';
+
+SHOW VARIABLES LIKE '%collation%';
+
+show databases;
+
+use mysql;
+
+select user, host from user;
+
+SHOW VARIABLES where value LIKE '/%';
+
+create database event_app character set utf8mb4 collate utf8mb4_bin;
+
+create user 'root'@'%' IDENTIFIED BY 'password';
+
+grant all on table event_app.* to 'root'@'%';
+
+flush privileges;
+
+show grants for root@'%';
 
 # cakephp 5.0.6
 

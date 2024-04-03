@@ -216,3 +216,35 @@ show grants for root@'%';
 
 composer create-project --prefer-dist cakephp/app:~5.0 event-app
 
+
+# 권한 설정
+
+getent passwd www-data
+  171  getent group www-data
+  172  systemctl restart httpd && systemctl restart php-fpm
+  180  ls -l /run/php-fpm/www.sock
+  184  systemctl restart httpd && systemctl restart php-fpm
+  192  chown -R www-data:www-data /run/php-fpm/www.sock
+  193  ls -l /run/php-fpm/www.sock
+  
+
+vi httpd.conf
+vi /etc/php-fpm.d/www.conf
+
+user = www-data
+group = www-data
+
+;listen.acl_users = apache,nginx
+listen.acl_groups =
+
+
+chcon -R -t httpd_sys_rw_content_t /var/www/html/event-app/tmp/
+chcon -R -t httpd_sys_rw_content_t /var/www/html/event-app/logs
+
+sudo semanage fcontext -a -t httpd_sys_rw_content_t "/var/run/php-fpm/www.sock"
+sudo restorecon -v "/var/run/php-fpm/www.sock"
+
+ausearch -c 'php-fpm' --raw | audit2allow -M my-phpfpm
+semodule -X 300 -i my-phpfpm.pp
+
+

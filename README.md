@@ -216,6 +216,34 @@ show grants for root@'%';
 
 composer create-project --prefer-dist cakephp/app:~5.0 event-app
 
+.env
+
+export APP_DEFAULT_LOCALE="ja_jp"
+
+export APP_DEFAULT_TIMEZONE="Asia/Tokyo"
+
+app.local.php
+    'Datasources' => [
+
+        'default' => [
+
+            'className' => 'Cake\Database\Connection',
+
+            'driver' => 'Cake\Database\Driver\Mysql',
+
+            'timezone' => 'UTC',
+
+            'host' => 'localhost',
+
+            'username' => 'root',
+
+            'password' => 'password',
+
+            'database' => 'event_app',
+
+            'url' => env('DATABASE_URL', null),
+
+        ],
 
 # 권한 설정
 

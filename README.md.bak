@@ -216,6 +216,28 @@ show grants for root@'%';
 
 composer create-project --prefer-dist cakephp/app:~5.0 event-app
 
+app.local.php
+    'Datasources' => [
+
+        'default' => [
+
+            'className' => 'Cake\Database\Connection',
+
+            'driver' => 'Cake\Database\Driver\Mysql',
+
+            'timezone' => 'UTC',
+
+            'host' => 'localhost',
+
+            'username' => 'root',
+
+            'password' => 'password',
+
+            'database' => 'event_app',
+
+            'url' => env('DATABASE_URL', null),
+
+        ],
 
 # 권한 설정
 
@@ -276,12 +298,15 @@ listen.acl_users = apache,nginx,www-data
 
 
 chcon -R -t httpd_sys_rw_content_t /var/www/html/event-app/tmp/
+
 chcon -R -t httpd_sys_rw_content_t /var/www/html/event-app/logs
 
 sudo semanage fcontext -a -t httpd_sys_rw_content_t "/var/run/php-fpm/www.sock"
+
 sudo restorecon -v "/var/run/php-fpm/www.sock"
 
 ausearch -c 'php-fpm' --raw | audit2allow -M my-phpfpm
+
 semodule -X 300 -i my-phpfpm.pp
 
 

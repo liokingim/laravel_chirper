@@ -80,3 +80,32 @@ dnf module install php:remi-7.4
 # vagrant
 https://gist.github.com/carthegian/b2451320bd0dda6b2df4c79b73b412f6
 
+# AlmaLinux 8
+
+php 8.2
+
+dnf update
+dnf -y install epel-release
+dnf -y install https://rpms.remirepo.net/enterprise/remi-release-8.9.rpm
+dnf clean all && dnf -y makecache
+dnf module list php
+
+dnf -y install php php-cli php-fpm php-devel php-pear php-curl php-mysqlnd php-gd php-opcache php-zip php-intl php-common php-bcmath php-imagick php-xmlrpc php-json php-readline php-memcached php-redis php-mbstring php-apcu php-xml php-dom php-redis php-memcached php-memcache php-process
+
+vim /etc/php.ini
+
+# 以下は例です
+memory_limit = 2G                     #RAM容量にあわせて調整してください
+error_log = /var/log/php_errors.log   #phpエラーログファイルパスを指定する
+post_max_size = 300M                  #利用目的にあわせて調整してください
+upload_max_filesize = 300M            #利用目的にあわせて調整してください
+date.timezone = Asia/Tokyo            #コメントアウトを外して、Asia/Tokyoを指定してください
+mbstring.language = Japanese　　　　　　　　　　　　　　　　　　　　#コメントアウトを外してください
+
+
+systemctl enable php-fpm
+
+systemctl restart httpd && systemctl restart php-fpm
+
+echo "<?php phpinfo(); ?>" > /var/www/html/info.php
+

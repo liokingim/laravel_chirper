@@ -229,6 +229,15 @@ getent passwd www-data
   
 
 vi httpd.conf
+
+<Directory />
+    Options FollowSymLinks
+    AllowOverride All
+#    AllowOverride none
+#    Require all denied
+</Directory>
+
+
 vi /etc/php-fpm.d/www.conf
 
 user = www-data

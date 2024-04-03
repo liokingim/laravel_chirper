@@ -233,10 +233,20 @@ vi httpd.conf
 <Directory />
     Options FollowSymLinks
     AllowOverride All
-#    AllowOverride none
-#    Require all denied
 </Directory>
 
+<Directory "/var/www">
+    Options FollowSymLinks
+    AllowOverride All
+    Order Allow,Deny
+    Allow from all
+</Directory>
+
+<Directory "/var/www/html">
+    Options Indexes FollowSymLinks
+    AllowOverride All
+    Require all granted
+</Directory>
 
 vi /etc/php-fpm.d/www.conf
 

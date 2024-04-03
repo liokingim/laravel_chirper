@@ -118,3 +118,51 @@ systemctl restart httpd && systemctl restart php-fpm
 
 echo "<?php phpinfo(); ?>" > /var/www/html/info.php
 
+# composer
+
+curl -sS https://getcomposer.org/installer | php
+
+mv composer.phar /usr/local/bin/composer
+
+composer  -V
+
+# redis
+
+dnf module list redis
+
+dnf module install redis
+
+systemctl status redis
+
+systemctl enable redis
+
+systemctl start redis
+
+systemctl status redis
+
+ redis-cli --version
+
+# xdebug
+
+dnf install php-xdebug
+
+systemctl start httpd
+
+# mysql
+
+dnf module list mysql
+
+dnf -y install mysql-server
+
+dnf -y install mysql
+
+systemctl start mysqld.service
+
+systemctl status mysqld.service
+
+systemctl enable mysqld.service
+
+mysql -u root -p
+
+
+

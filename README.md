@@ -333,4 +333,38 @@ ausearch -c 'php-fpm' --raw | audit2allow -M my-phpfpm
 
 semodule -X 300 -i my-phpfpm.pp
 
+# git
+
+dnf -y install git
+
+git --version
+
+git config --global user.name "Your Name"
+
+git config --global user.email "address@domain.com"
+
+git config --list
+
+git config --global --add safe.directory /var/www/html/event-app
+
+git remote set-url origin url
+
+git fetch
+
+git remote -v
+
+git remote add origin url
+
+git config pull.rebase false
+
+git pull origin main
+
+ git merge --allow-unrelated-histories origin/main
+
+
+# tutorial
+
+bin/cake bake model articles
+
+bin/cake bake controller articles
 

@@ -82,7 +82,23 @@ https://gist.github.com/carthegian/b2451320bd0dda6b2df4c79b73b412f6
 
 # AlmaLinux 8
 
+sudo groupadd www-data
+
+sudo useradd -g www-data -s /usr/sbin/nologin www-data
+
+chown -R www-data:www-data /var/www/html
+
+getent passwd www-data
+
+getent group www-data
+
 # http
+
+dnf module list httpd
+
+sudo dnf install httpd
+
+
 
 firewall-cmd --list-all
 
@@ -296,9 +312,11 @@ vi httpd.conf
 
 vi /etc/php-fpm.d/www.conf
 
-user = www-data
+listen.owner = www-data
 
-group = www-data
+listen.group = www-data
+
+listen.mode = 0660
 
 listen.acl_users = apache,nginx,www-data
 

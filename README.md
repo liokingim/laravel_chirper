@@ -368,3 +368,17 @@ bin/cake bake model articles
 
 bin/cake bake controller articles
 
+# ssl
+
+dnf install httpd mod_ssl
+
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/pki/tls/private/localhost.key -out /etc/pki/tls/certs/localhost.crt
+
+vi /etc/httpd/conf.d/ssl.conf
+
+sudo firewall-cmd --permanent --add-service=https
+sudo firewall-cmd --reload
+
+sudo systemctl restart httpd
+
+
